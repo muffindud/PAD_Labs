@@ -1,4 +1,5 @@
 import asyncio
+import asyncio
 from quart import Quart, jsonify
 from quart_rate_limiter import RateLimiter, rate_limit
 from os import environ
@@ -7,7 +8,12 @@ from httpx import AsyncClient
 from socket import gethostname
 from threading import Lock
 from atexit import register
+from httpx import AsyncClient
+from socket import gethostname
+from threading import Lock
+from atexit import register
 
+UPDATE_PERIOD = 15  # seconds
 UPDATE_PERIOD = 15  # seconds
 
 app = Quart(__name__)
@@ -101,6 +107,10 @@ async def health():
 
 import routes.user_manager
 import routes.game_lobby
+import routes.exchange_service
+
+
+register(lambda: None)
 import routes.exchange_service
 
 

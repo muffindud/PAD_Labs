@@ -30,6 +30,7 @@ def get_round_robin_exchange_service() -> str:
 
 
 @app.route('/exchange-rate', methods=['GET'])
+@app.route('/exchange-rate', methods=['GET'])
 @rate_limit(app.config['RATE_LIMIT'], app.config['RATE_LIMIT_PERIOD'])
 async def exchange():
     host = get_round_robin_exchange_service()

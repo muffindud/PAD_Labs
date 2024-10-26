@@ -27,6 +27,28 @@ def get_round_robin_exchange_service() -> str:
     round_robin_index = (round_robin_index + 1) % len(service_registry)
 
     return host
+round_robin_index = 0
+def get_round_robin_exchange_service() -> str:
+    global round_robin_index
+    service_registry = get_service_registry('User Manager')
+
+    # If there are no user manager services, return None
+    if len(service_registry) == 0:
+        return None
+
+    # If the round robin index is out of bounds, reset it
+    if round_robin_index >= len(service_registry):
+        round_robin_index = 0
+
+    serv_id = list(service_registry.keys())[round_robin_index]
+
+    # Get the next user manager service host
+    host = service_registry[serv_id]
+
+    # Increment the round robin index and keep it within bounds
+    round_robin_index = (round_robin_index + 1) % len(service_registry)
+
+    return host
 
 
 @app.route('/register', methods=['POST'])
